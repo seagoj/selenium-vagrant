@@ -3,9 +3,8 @@ Vagrant.configure("2") do |config|
     config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
     config.ssh.forward_agent = true
     config.vm.provision "docker" do |d|
-        # d.pull_images "seagoj/selenium-chrome"
         d.run "seagoj/selenium-chrome",
-            args: "-p 9222:9222 -p 4444:4444",
+            args: "--privileged -p 9222:9222 -p 4444:4444",
             cmd: "/usr/local/bin/start-selenium-server.sh"
     end
     config.vm.network :forwarded_port, guest:4444, host:4444
